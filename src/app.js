@@ -1,4 +1,4 @@
-import {historyView,bindHistory,adminView,profitView,pendingHistoryView} from './history.js';
+import {historyView,bindHistory,adminView,profitView,pendingHistoryView} from './history.js?v=20260930b';
 import {store,login,logout,restore,demo,write} from './store.js';
 import {money,amounts,summarize,fuelRows} from './domain.js';
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
