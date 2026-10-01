@@ -1,4 +1,4 @@
-import {roundsPage,roundDetail,roundRanking,roundExpenses,installRounds} from './rounds.js?v=20261001ze';
+import {roundsPage,roundDetail,roundRanking,roundExpenses,installRounds} from './rounds.js?v=20261001zi';
 import {paymentsPage,installPayments} from './payments.js?v=20261001ze';
 import {documentsPage,installDocuments} from './documents.js?v=20261001zg';
 import {installAccount} from './account.js?v=20261001ze';
