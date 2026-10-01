@@ -1,8 +1,8 @@
 import {loginIdentity} from './auth-identity.js';
 import {config} from '../config.js';
 import {amounts,summarize} from './domain.js';
-const tables=['drivers','vehicles','clients','trips','expenses','customer_payments','supplier_payments','administrative_expenses'];
-const readTables=[...tables,'history_sheets','history_records'];
+const tables=['drivers','vehicles','clients','trips','expenses','customer_payments','supplier_payments','administrative_expenses','payable_accounts','payable_payments'];
+const readTables=[...tables,'history_sheets','history_records','trip_costs','trip_cost_links','trip_cost_allocations','fuel_observations','administrative_details','maintenance_records'];
 let session=JSON.parse(sessionStorage.getItem('mt-session')||'null');
 export const store={demo:false,data:{},user:null};
 const save=()=>localStorage.setItem('mt-demo-v2',JSON.stringify(store.data));
@@ -17,3 +17,5 @@ if(table==='customer_payments'){const s=summarize(t,store.data.expenses,store.da
 if(table==='supplier_payments'){const e=store.data.expenses.find(e=>e.id===obj.expense_id);const paid=store.data.supplier_payments.filter(p=>p.expense_id===e.id&&p.id!==id).reduce((s,p)=>s+Number(p.amount),0);if(e.payment_mode!=='credit'||obj.amount<=0||obj.amount>e.amount-paid)throw Error('El pago supera el saldo del proveedor.');}
 if(table==='trips'){obj.number=old?.number||Math.max(0,...store.data.trips.map(t=>t.number))+1;if(obj.status==='finished'&&!obj.end_date)throw Error('Indica la fecha de término.');if(obj.end_date&&obj.end_date<obj.start_date)throw Error('El término no puede ser anterior al inicio.');if(obj.invoice_status==='issued'&&(!obj.invoice_number?.trim()||!obj.invoice_date))throw Error('Completa número y fecha de factura.');if(obj.invoice_number&&store.data.trips.some(t=>t.id!==id&&t.invoice_number?.trim().toLowerCase()===obj.invoice_number.trim().toLowerCase()))throw Error('Ese número de factura ya existe.');const s=summarize(obj,store.data.expenses,store.data.customer_payments);if(s.customer_balance<0||s.detraction_balance<0)throw Error('El importe contradice los pagos registrados.');}
 if(id)store.data[table]=store.data[table].map(x=>x.id===id?obj:x);else store.data[table].push(obj);save();return obj;}
+
+export async function rpc(name,args){if(store.demo)throw Error("Esta acción requiere ingresar con tu cuenta. La demostración no modifica datos reales.");const result=await request("rpc/"+name,{method:"POST",body:JSON.stringify(args)});await load();return result;}
