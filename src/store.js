@@ -1,3 +1,4 @@
+import {updateOwnPassword} from './account.js?v=20261001zc';
 import {readResponse} from './http.js?v=20261001s';
 import {loginIdentity} from './auth-identity.js';
 import {config} from '../config.js';
@@ -27,4 +28,10 @@ export async function createUser(values){
  await request('profiles?select=id&limit=1');
  const r=await fetch(config.url+'/functions/v1/manage-users',{method:'POST',headers:{apikey:config.key,Authorization:'Bearer '+session.access_token,'Content-Type':'application/json'},body:JSON.stringify(values)});
  const result=await r.json();if(!r.ok)throw Error(result.message||'No se pudo crear el usuario.');await load();return result;
+}
+
+export async function changePassword(values){
+ if(store.demo||!session?.user?.id)throw Error('Ingresa con tu cuenta para cambiar tu contraseña.');
+ await updateOwnPassword({...values,url:config.url,key:config.key,userId:session.user.id,email:session.user.email});
+ logout();
 }
