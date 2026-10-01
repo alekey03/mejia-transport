@@ -1,12 +1,18 @@
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-export function maintenanceFields(input,m={},prefix=''){
- return '<fieldset class="full maintenance-fields"><legend>Historial de mantenimiento (opcional)</legend><p class="muted">Completa la pieza para incluir este gasto en el historial de la unidad. El costo se cuenta una sola vez. Si aún no se instaló, deja la instalación vacía.</p>'+input('Pieza / trabajo realizado',prefix+'component','text',m?.component||'')+input('Fecha de compra o gasto',prefix+'purchased_on','date',m?.purchased_on||'')+input('Fecha de instalación / reparación',prefix+'installed_on','date',m?.installed_on||'')+input('Taller / lugar',prefix+'place','text',m?.place||'')+'</fieldset>';
+export function maintenanceFields(input,m={},prefix='',parentDate=''){
+ const separateDate=m?.purchased_on&&m.purchased_on!==parentDate;
+ return '<fieldset class="full maintenance-fields" data-existing-maintenance="'+(m?.component?'true':'false')+'"><legend>Historial de mantenimiento (opcional)</legend><p class="muted">Indica la pieza para incluirla en el historial de la unidad. Se usa la fecha del gasto. Si aún no se instaló, deja la instalación vacía.</p>'+input('Pieza / trabajo realizado',prefix+'component','text',m?.component||'')+(separateDate?input('Fecha de compra registrada (distinta del gasto)',prefix+'purchased_on','date',m.purchased_on):'')+input('Fecha de instalación / reparación',prefix+'installed_on','date',m?.installed_on||'')+input('Taller / lugar',prefix+'place','text',m?.place||'')+'</fieldset>';
 }
-export function maintenanceValue(v,prefix=''){
+export function maintenanceValue(v,prefix='',parentDate=''){
  if(!v[prefix+'component']?.trim())return null;
- if(!v[prefix+'purchased_on'])throw Error('Completa la fecha de compra o gasto del repuesto.');
- if(v[prefix+'installed_on']&&v[prefix+'installed_on']<v[prefix+'purchased_on'])throw Error('La instalación no puede ser anterior a la compra.');
- return Object.fromEntries(['component','purchased_on','installed_on','place'].map(k=>[k,v[prefix+k]?.trim()||null]));
+ const date=v[prefix+'purchased_on']||parentDate;
+ if(!date)throw Error('Completa la fecha del gasto para registrar el repuesto.');
+ if(v[prefix+'installed_on']&&v[prefix+'installed_on']<date)throw Error('La instalación no puede ser anterior a la compra.');
+ return {...Object.fromEntries(['component','installed_on','place'].map(k=>[k,v[prefix+k]?.trim()||null])),purchased_on:date};
+}
+export function showMaintenance(form,category){
+ const applicable=['Reparación','Reparaciones','Repuestos'].includes(category);
+ form.querySelectorAll('.maintenance-fields').forEach(box=>{const show=applicable||box.dataset.existingMaintenance==='true';box.hidden=!show;box.style.display=show?'':'none';box.querySelectorAll('input,select').forEach(field=>field.disabled=!show);});
 }
 export function linkedMaintenance(d){
  const trips=d.expenses.filter(e=>e.maintenance).map(e=>({id:e.id,vehicle_id:d.trips.find(t=>t.id===e.trip_id)?.vehicle_id,...e.maintenance,description:e.description,amount:e.amount,origin:'Liquidación del viaje',trip_id:e.trip_id,edit:'data-edit-expense'}));
