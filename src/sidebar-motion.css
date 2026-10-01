@@ -1,0 +1,36 @@
+/* Keep navigation mounted so the width and labels can transition together. */
+.shell,.shell:not(.menu-hidden){display:grid;grid-template-columns:240px minmax(0,1fr);background:none;transition:grid-template-columns 360ms cubic-bezier(.22,1,.36,1)}
+.shell.menu-hidden{grid-template-columns:72px minmax(0,1fr)}
+.shell>aside,.shell.menu-hidden>aside{display:flex;height:100dvh;position:sticky;top:0;padding:18px 14px;overflow:hidden;transition:padding 360ms cubic-bezier(.22,1,.36,1);z-index:4}
+.shell.menu-hidden>aside{padding:18px 12px}
+.sidebar-heading{gap:8px;min-height:44px}
+.sidebar-heading .brand{max-width:160px;opacity:1;transition:max-width 360ms cubic-bezier(.22,1,.36,1),opacity 160ms,transform 360ms;transform:translateX(0);overflow:hidden}
+.sidebar-heading .brand img{min-width:150px}
+.menu-hidden .sidebar-heading{gap:0;justify-content:center}
+.menu-hidden .sidebar-heading .brand{max-width:0;opacity:0;transform:translateX(-12px);pointer-events:none}
+.sidebar-heading .aside-toggle{flex:0 0 44px;width:44px;min-height:44px;margin:0;display:grid;place-content:center;gap:4px}
+.aside-toggle .toggle-line{display:block;width:18px;height:2px;background:currentColor;border-radius:2px;transition:transform 300ms,opacity 180ms;transform-origin:center}
+.menu-hidden .aside-toggle .toggle-line:first-child{transform:translateY(3px) rotate(40deg);width:12px}
+.menu-hidden .aside-toggle .toggle-line:nth-child(2){opacity:0}
+.menu-hidden .aside-toggle .toggle-line:last-child{transform:translateY(-3px) rotate(-40deg);width:12px}
+.shell .topbar>.menu-toggle{display:none}
+.shell .nav{display:flex;flex-direction:column;flex:1;min-height:0;overflow-y:auto;overflow-x:hidden;gap:3px}
+.shell .nav button{flex-shrink:0;width:100%;min-height:44px;display:flex;align-items:center;gap:12px;padding:12px 10px;white-space:nowrap;margin:0;transition:background 180ms,padding 300ms,gap 300ms}
+.shell .nav svg{display:block;flex:0 0 20px;width:20px;height:20px;transition:transform 200ms}
+.shell .nav button:hover svg{transform:translateY(-1px)}
+.nav-text{display:block;max-width:190px;opacity:1;transition:max-width 320ms,opacity 130ms,transform 320ms;transform:translateX(0);overflow:hidden}
+.menu-hidden .nav-text{max-width:0;opacity:0;transform:translateX(-8px)}
+.shell.menu-hidden .nav button{gap:0;padding:12px;justify-content:center}
+.shell.menu-hidden .nav{padding-right:0;scrollbar-width:none}
+.nav-label,.aside-bottom{transition:opacity 160ms,max-height 320ms,margin 320ms,padding 320ms;max-height:180px;overflow:hidden}
+.shell.menu-hidden .nav-label,.shell.menu-hidden .aside-bottom{max-height:0;opacity:0;margin:0;padding:0;border:0}
+@media(max-width:700px){
+ .shell,.shell:not(.menu-hidden),.shell.menu-hidden{display:block;padding-left:64px}
+ .shell>aside,.shell.menu-hidden>aside{position:fixed;left:0;top:0;width:240px;height:100dvh;transition:width 360ms cubic-bezier(.22,1,.36,1),padding 360ms;box-shadow:12px 0 28px #071a3520}
+ .shell.menu-hidden>aside{width:64px;padding:12px 8px;box-shadow:none}
+ .shell .brand,.shell .nav-label,.shell .aside-bottom{display:block}
+ .sidebar-heading .brand{flex:1}.shell .nav-label{font-size:10px}
+ .shell .content{padding:20px 10px}.shell .metrics{grid-template-columns:1fr}
+ .shell .topbar{padding:10px;flex-wrap:wrap}.shell .topbar>span{max-width:none}
+}
+@media(prefers-reduced-motion:reduce){.shell,.shell *{transition:none!important}}
