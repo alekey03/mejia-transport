@@ -1,3 +1,19 @@
+/* Keep the menu and footer inside the sidebar, including short or zoomed windows. */
+@media(min-width:701px){
+ .shell{align-items:start;background:linear-gradient(to right,var(--navy) 224px,transparent 224px)}
+ .shell>aside{height:100vh;height:100dvh;min-height:0;align-self:start;overflow:hidden;gap:0}
+ .shell>main{min-height:100vh;min-height:100dvh}
+ .brand,.nav-label,.aside-bottom{flex-shrink:0}
+ .nav{flex:1 1 auto;min-height:0;overflow-y:auto;overflow-x:hidden;overscroll-behavior:contain;scrollbar-width:thin;scrollbar-color:#617b96 transparent;padding-right:3px}
+ .nav button{min-height:44px;margin:2px 0;padding:12px;border-radius:8px}
+ .nav button:focus-visible{outline:2px solid #a7c5ff;outline-offset:-2px}
+ .aside-bottom{margin-top:16px;padding-top:16px;line-height:1.5}
+}
+@media(min-width:701px) and (max-width:1050px){.shell{background:linear-gradient(to right,var(--navy) 190px,transparent 190px)}}
+@media(min-width:701px) and (max-height:760px){
+ .shell>aside{padding:16px 14px}.brand{padding:9px;margin-bottom:12px}.nav-label{margin:8px 12px}
+ .aside-bottom{font-size:11px;margin-top:10px;padding-top:10px}
+}
 @media(max-width:700px){.user>span.mode{display:inline!important;font-size:9px;max-width:120px;white-space:normal}.topbar{gap:8px}}
 /* Touch controls and narrow layouts share the same data and URLs as desktop. */
 @media(max-width:700px){
