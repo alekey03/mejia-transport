@@ -1,0 +1,11 @@
+.monthly-comparison{display:grid;gap:18px;margin:22px 0}
+.comparison-month{border-bottom:1px solid var(--line);padding-bottom:16px}
+.comparison-month:last-child{border-bottom:0;padding-bottom:0}
+.comparison-month h3{text-transform:capitalize;margin-bottom:12px;font-size:14px}
+.comparison-row{margin-top:10px}
+.comparison-row>div:first-child{display:flex;justify-content:space-between;gap:12px;font-size:12px;margin-bottom:6px}
+.comparison-row strong{white-space:nowrap;font-variant-numeric:tabular-nums}
+.comparison-track{height:8px;background:#f0f3f8;border-radius:5px;overflow:hidden}
+.comparison-track span{display:block;height:100%;border-radius:5px}
+.comparison-track .services{background:#4053a4}
+.comparison-track .costs{background:#478b7e}
