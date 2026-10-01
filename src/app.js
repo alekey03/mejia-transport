@@ -1,5 +1,5 @@
 import {maintenanceFields,maintenanceValue} from './maintenance-link.js?v=20261001f';
-import {allExpenses,sharedCosts,costPanel,adminPage,payablePage,fuelPage,profitPage,resultData,tripMonth,installEditors,maintenancePage} from './operations.js?v=20261001f';
+import {allExpenses,sharedCosts,costPanel,adminPage,payablePage,fuelPage,profitPage,resultData,tripMonth,installEditors,maintenancePage} from './operations.js?v=20261001h';
 import {adminView,profitView,pendingHistoryView,completedTripsView} from './history.js?v=20261001f';
 import {store,login,logout,restore,demo,write,rpc} from './store.js?v=20261001f';
 import {money,amounts,summarize,fuelRows} from './domain.js';
