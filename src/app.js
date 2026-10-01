@@ -1,3 +1,4 @@
+import './password-visibility.js?v=20261001t';
 import {usersPage,installUsers} from './users.js?v=20261001n';
 import {balancesPanel} from './balances.js?v=20261001i';
 import {maintenanceFields,maintenanceValue,showMaintenance} from './maintenance-link.js?v=20261001r';
