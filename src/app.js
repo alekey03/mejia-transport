@@ -1,9 +1,9 @@
 import {usersPage,installUsers} from './users.js?v=20261001n';
 import {balancesPanel} from './balances.js?v=20261001i';
 import {maintenanceFields,maintenanceValue,showMaintenance} from './maintenance-link.js?v=20261001r';
-import {allExpenses,sharedCosts,costPanel,adminPage,payablePage,fuelPage,profitPage,resultData,tripMonth,installEditors,maintenancePage} from './operations.js?v=20261001r';
+import {allExpenses,sharedCosts,costPanel,adminPage,payablePage,fuelPage,profitPage,resultData,tripMonth,installEditors,maintenancePage} from './operations.js?v=20261001s';
 import {adminView,profitView,pendingHistoryView,completedTripsView} from './history.js?v=20261001f';
-import {store,login,logout,restore,demo,write,rpc,createUser} from './store.js?v=20261001j';
+import {store,login,logout,restore,demo,write,rpc,createUser} from './store.js?v=20261001s';
 import {money,amounts,summarize,fuelRows} from './domain.js';
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
