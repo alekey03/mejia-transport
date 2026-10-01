@@ -1,1 +1,28 @@
 @media(max-width:700px){.user>span.mode{display:inline!important;font-size:9px;max-width:120px;white-space:normal}.topbar{gap:8px}}
+/* Touch controls and narrow layouts share the same data and URLs as desktop. */
+@media(max-width:700px){
+ html{scroll-padding-top:80px}body{overflow-wrap:break-word}
+ button,input,select,textarea{min-height:44px}input,select,textarea{font-size:16px}
+ .shell aside{position:sticky;top:0;z-index:3;padding:8px 10px;box-shadow:0 2px 8px #10233b20}
+ .nav{gap:6px;scrollbar-width:thin;scroll-snap-type:x proximity}
+ .nav button{flex-shrink:0;scroll-snap-align:start;font-size:13px;padding:12px 14px;border-radius:8px}
+ .nav button.active{box-shadow:inset 0 -3px #93b6ff}
+ .topbar{min-height:64px;height:auto;flex-wrap:wrap}.topbar .user{gap:8px}
+ .topbar .avatar{display:none}.user .link{padding:10px}
+ .content{padding:20px 12px 36px}.content>*{min-width:0}
+ .page-head,.page-head>.actions{width:100%}.actions{align-items:stretch;width:100%}
+ .actions>label{flex:1 1 140px;min-width:0}.actions>.primary{flex:1 1 100%}
+ .filter{width:100%;max-width:none}.metrics{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .metric{padding:14px 12px}.metric strong{font-size:clamp(17px,5vw,23px);overflow-wrap:anywhere}
+ .card{padding:16px 12px;min-width:0}.grid{min-width:0;grid-template-columns:minmax(0,1fr)}.facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+ .table-wrap{max-width:100%;overscroll-behavior-x:contain;-webkit-overflow-scrolling:touch}
+ .table-wrap table{min-width:560px}.table-wrap .link{min-height:44px;padding:8px 0}
+ .tabs{gap:6px}.tabs button{flex:1 1 auto;font-size:12px;padding:10px}
+ dialog{width:calc(100vw - 20px);max-height:calc(100dvh - 24px);padding:18px 14px;margin:auto}
+ .dialog-title{gap:12px}.dialog-title h2{line-height:1.4}.dialog-title button{flex-shrink:0}
+ .form-grid{gap:14px}.form-actions{position:sticky;bottom:-18px;background:white;padding:12px 0;margin-top:14px}
+ .form-actions button{flex:1}.login{min-height:100dvh}.login-panel{padding:28px 22px}
+ .login-logo{display:block;width:min(240px,80%);margin:0 auto 28px}.login-panel h1{font-size:26px}
+ #toast{left:12px;right:12px;bottom:16px;max-width:none}.notice{overflow:hidden}
+}
+@media(max-width:360px){.metrics,.facts{grid-template-columns:1fr}.topbar>span{max-width:100px}}
