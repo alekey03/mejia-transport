@@ -1,0 +1,30 @@
+/* A short entrance; the form stays usable throughout. */
+@keyframes mt-logo-rise {
+  from { opacity:0; transform:translateY(48px) scale(.96); }
+  to { opacity:1; transform:translateY(0) scale(1); }
+}
+@keyframes mt-content-rise {
+  from { opacity:0; transform:translateY(16px); }
+  to { opacity:1; transform:translateY(0); }
+}
+.login-hero-logo,.login-panel .login-logo {
+  animation:mt-logo-rise 950ms cubic-bezier(.16,1,.3,1) both;
+}
+.login-brand-name,.login-art h1,.login-art p {
+  animation:mt-content-rise 650ms cubic-bezier(.16,1,.3,1) 180ms both;
+}
+.login-panel>div {
+  animation:mt-content-rise 650ms cubic-bezier(.16,1,.3,1) 220ms both;
+}
+.login-panel:focus-within>div { animation:none; }
+@media(max-width:700px) {
+  .login-panel>div { animation:none; }
+  .login-panel .eyebrow,.login-panel h1,.login-panel .muted,.login-panel form,
+  .login-panel .secondary,.login-panel .footnote {
+    animation:mt-content-rise 650ms cubic-bezier(.16,1,.3,1) 180ms both;
+  }
+  .login-panel form:focus-within { animation:none; }
+}
+@media(prefers-reduced-motion:reduce) {
+  .login * { animation:none!important; }
+}
