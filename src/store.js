@@ -2,7 +2,7 @@ import {readResponse} from './http.js?v=20261001s';
 import {loginIdentity} from './auth-identity.js';
 import {config} from '../config.js';
 import {amounts,summarize} from './domain.js';
-const tables=['drivers','vehicles','clients','trips','expenses','customer_payments','supplier_payments','administrative_expenses','payable_accounts','payable_payments'];
+const tables=['driver_cash_entries','drivers','vehicles','clients','trips','expenses','customer_payments','supplier_payments','administrative_expenses','payable_accounts','payable_payments'];
 const readTables=[...tables,'profiles','history_sheets','history_records','trip_costs','trip_cost_links','trip_cost_allocations','fuel_observations','administrative_details','maintenance_records'];
 let session=JSON.parse(sessionStorage.getItem('mt-session')||'null');
 export const store={demo:false,data:{},user:null};
