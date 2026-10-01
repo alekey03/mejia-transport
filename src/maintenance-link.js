@@ -10,7 +10,7 @@ export function maintenanceValue(v,prefix=''){
 }
 export function linkedMaintenance(d){
  const trips=d.expenses.filter(e=>e.maintenance).map(e=>({id:e.id,vehicle_id:d.trips.find(t=>t.id===e.trip_id)?.vehicle_id,...e.maintenance,description:e.description,amount:e.amount,origin:'Liquidación del viaje',trip_id:e.trip_id,edit:'data-edit-expense'}));
- const company=d.administrative_details.filter(e=>e.active&&e.maintenance).map(e=>({id:e.expense_id,vehicle_id:e.vehicle_id,...e.maintenance,description:e.description,amount:e.amount,origin:'Gasto de empresa',edit:'data-edit-admin'}));
+ const company=d.administrative_details.filter(e=>e.active&&e.maintenance&&!d.administrative_expenses?.find(a=>a.id===e.expense_id)?.archived_at).map(e=>({id:e.expense_id,vehicle_id:e.vehicle_id,...e.maintenance,description:e.description,amount:e.amount,origin:'Gasto de empresa',edit:'data-edit-admin'}));
  return [...trips,...company];
 }
 export function linkedMaintenanceTable(d,vehicle,money,table){

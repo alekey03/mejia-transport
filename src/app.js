@@ -1,7 +1,7 @@
-import {maintenanceFields,maintenanceValue} from './maintenance-link.js?v=20261001e';
-import {allExpenses,sharedCosts,costPanel,adminPage,payablePage,fuelPage,profitPage,resultData,tripMonth,installEditors,maintenancePage} from './operations.js?v=20261001e';
-import {adminView,profitView,pendingHistoryView,completedTripsView} from './history.js?v=20261001e';
-import {store,login,logout,restore,demo,write,rpc} from './store.js?v=20261001e';
+import {maintenanceFields,maintenanceValue} from './maintenance-link.js?v=20261001f';
+import {allExpenses,sharedCosts,costPanel,adminPage,payablePage,fuelPage,profitPage,resultData,tripMonth,installEditors,maintenancePage} from './operations.js?v=20261001f';
+import {adminView,profitView,pendingHistoryView,completedTripsView} from './history.js?v=20261001f';
+import {store,login,logout,restore,demo,write,rpc} from './store.js?v=20261001f';
 import {money,amounts,summarize,fuelRows} from './domain.js';
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
