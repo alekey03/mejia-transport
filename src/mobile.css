@@ -52,3 +52,12 @@
 @media(max-width:700px){.brand{display:block;max-width:160px;margin:0 auto 12px}.aside-toggle{position:absolute;right:12px;top:12px}.maintenance-fields,.admin-line{grid-template-columns:1fr}.topbar>span{max-width:110px}.topbar{flex-wrap:nowrap}.user{flex-wrap:wrap;justify-content:flex-end}}
 
 .shell:not(.menu-hidden) .topbar>.menu-toggle{display:none}
+
+/* Logo and toggle share a compact row. */
+.sidebar-heading{display:flex;align-items:center;gap:8px;flex-shrink:0;margin-bottom:12px}
+.sidebar-heading .brand{order:0;flex:1;min-width:0;margin:0;padding:0;max-width:none}
+.sidebar-heading .aside-toggle{order:1;position:static;align-self:center;margin:0;width:40px;min-width:40px;min-height:40px;padding:8px}
+.shell>aside .nav-label{margin-top:8px}
+@media(min-width:701px){.shell:not(.menu-hidden){grid-template-columns:240px minmax(0,1fr);background:linear-gradient(to right,var(--navy) 240px,transparent 240px)}}
+@media(min-width:701px) and (max-width:1050px){.shell:not(.menu-hidden){grid-template-columns:210px minmax(0,1fr);background:linear-gradient(to right,var(--navy) 210px,transparent 210px)}}
+@media(max-width:700px){.sidebar-heading{margin:0 0 8px}.sidebar-heading .brand{flex:0 1 160px}.sidebar-heading .aside-toggle{margin-left:auto}}
