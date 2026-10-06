@@ -1,0 +1,21 @@
+@keyframes mt-lift-in{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
+@keyframes mt-eagle-glide{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-9px) rotate(-.6deg)}}
+@keyframes mt-bar-grow{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:no-preference){
+ .content>.page-head,.content>h1,.content>.card,.content>.metrics,.content>.pending-overview,.content>.grid{animation:mt-lift-in 380ms cubic-bezier(.2,.8,.2,1) both}
+ .content>.card:nth-of-type(2),.content>.metrics{animation-delay:45ms}
+ .comparison-track span{transform-origin:left;animation:mt-bar-grow 650ms cubic-bezier(.2,.8,.2,1) both}
+ .login-hero-logo{animation:mt-logo-rise 950ms cubic-bezier(.16,1,.3,1) both,mt-eagle-glide 4s ease-in-out 950ms 2}
+ .sidebar-heading .brand img{animation:mt-eagle-glide 3.5s ease-in-out 2;transition:filter 220ms}
+ .sidebar-heading .brand:hover img{filter:drop-shadow(0 0 9px #60cafa70)}
+ .metric{transition:transform 180ms,box-shadow 180ms,border-color 180ms}
+ button{transition:background-color 160ms,box-shadow 160ms,transform 160ms}
+ button:active:not(:disabled){transform:translateY(1px) scale(.985)}
+ .tabs button.active{box-shadow:0 4px 12px #152b4820}
+ dialog[open]{animation:mt-lift-in 180ms ease-out}
+ @media(hover:hover){.metric:hover{transform:translateY(-3px);box-shadow:0 9px 24px #1830470d;border-color:#cbd8ed}}
+}
+.mt-counting{position:relative;font-variant-numeric:tabular-nums;white-space:nowrap}
+.mt-number-overlay{position:absolute;inset:0;pointer-events:none;user-select:none}
+button:focus-visible{outline:3px solid #628fe0;outline-offset:3px}
+@media(prefers-reduced-motion:reduce){.content *,.login *,.sidebar-heading *{animation:none!important;transition:none!important}}

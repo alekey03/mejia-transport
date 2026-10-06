@@ -1,3 +1,4 @@
+import './life.js?v=20261005a';
 import {collectionsView} from './collection-filter.js?v=20261001zm';
 import {installOperationTrash} from './operation-trash.js?v=20261001zk';
 import {roundsPage,roundDetail,roundRanking,roundExpenses,installRounds} from './rounds.js?v=20261001zm';
