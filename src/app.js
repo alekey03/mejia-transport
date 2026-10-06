@@ -1,20 +1,21 @@
 import './life.js?v=20261005a';
-import {collectionsView} from './collection-filter.js?v=20261001zm';
+import {collectionsView} from './collection-filter.js?v=20261005b';
 import {installOperationTrash} from './operation-trash.js?v=20261001zk';
-import {roundsPage,roundDetail,roundRanking,roundExpenses,installRounds} from './rounds.js?v=20261001zm';
-import {paymentsPage,installPayments} from './payments.js?v=20261001ze';
+import {roundsPage,roundDetail,roundRanking,roundExpenses,installRounds} from './rounds.js?v=20261005b';
+import {paymentsPage,installPayments} from './payments.js?v=20261005b';
+import {installSupplierInvoices} from './supplier-invoices.js?v=20261005b';
 import {documentsPage,installDocuments} from './documents.js?v=20261001zg';
 import {installAccount} from './account.js?v=20261001ze';
 import {driverCashPanel,installDriverCash} from './driver-cash.js?v=20261001ze';
 import {profitableTrips} from './profitable-trips.js?v=20261001ze';
 import './password-visibility.js?v=20261001ze';
 import {usersPage,installUsers} from './users.js?v=20261001ze';
-import {balancesPanel} from './balances.js?v=20261001ze';
+import {balancesPanel} from './balances.js?v=20261005b';
 import {maintenanceFields,maintenanceValue,showMaintenance} from './maintenance-link.js?v=20261001ze';
 import {allExpenses,sharedCosts,costPanel,adminPage,payablePage,fuelPage,profitPage,resultData,tripMonth,installEditors,maintenancePage} from './operations.js?v=20261001zj';
 import {adminView,profitView,pendingHistoryView,completedTripsView} from './history.js?v=20261001ze';
-import {store,login,logout,restore,write,rpc,createUser,changePassword} from './store.js?v=20261001zk';
-import {money,amounts,summarize,fuelRows} from './domain.js?v=20261001ze';
+import {store,login,logout,restore,write,rpc,createUser,changePassword} from './store.js?v=20261005b';
+import {money,amounts,summarize,fuelRows} from './domain.js?v=20261005b';
 const app=document.querySelector('#app'),modal=document.querySelector('#modal');
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=()=>new Date().toLocaleDateString('en-CA',{timeZone:'America/Lima'});
@@ -58,7 +59,7 @@ if(detailTab==='Servicio'){const pending=sharedCosts(data(),t.id).filter(c=>c.am
 if(detailTab==='Dinero del chofer')body=driverCashPanel(data(),t,table);
 if(detailTab==='Gastos y combustible')body=costPanel(data(),t.id)+'<section class="card"><div class="page-head"><h2>Gastos del viaje</h2><button class="primary" data-action="expense" '+(t.settlement_status==='settled'?'disabled':'')+'>+ Agregar gasto o combustible</button></div>'+table(['Fecha','Concepto','Proveedor / detalle','Importe','Pago',''],es.map(e=>[fmt(e.occurred_at),esc(e.category)+(e.gallons?'<p class="muted">'+e.gallons+' gl · '+e.odometer+' km</p>':''),esc(e.supplier||e.description||'—'),money(e.amount),badge(e.payment_mode==='unconfirmed'?'Pago por confirmar':e.payment_mode==='credit'?'A crédito':'Al contado',e.payment_mode==='credit'?'amber':'green'),(!e.cost_id?'<button data-edit-expense="'+e.id+'">Editar</button> ':'')+(e.payment_mode==='credit'?'<button class="link" data-supplier="'+e.id+'">Registrar pago</button>':'' )]))+'</section>';
 if(detailTab==='Factura')body='<section class="card"><div class="page-head"><h2>Facturación del servicio</h2><button data-action="invoice">Completar / editar factura</button></div><div class="facts">'+[['Situación',({pending:'Pendiente de emitir',issued:'Facturado',not_required:'Sin factura'})[t.invoice_status]],['Número',t.invoice_number||'—'],['Emisión',fmt(t.invoice_date)],['Vencimiento',fmt(t.due_date)],['Detracción',money(t.detraction)],['Guías remitente',t.sender_guides||'—'],['Guías transporte',t.carrier_guides||'—']].map(([a,b])=>'<div><span>'+a+'</span><b>'+esc(b)+'</b></div>').join('')+'</div></section>';
-if(detailTab==='Cobros')body='<div class="metrics">'+metric('Precio total del viaje',money(t.total))+metric('Recibido del cliente',money(t.customer_paid))+metric('Lo que falta cobrar',money(t.customer_balance))+metric('Detracción pendiente',money(t.detraction_balance))+'</div><section class="card"><div class="page-head"><h2>Pagos recibidos del cliente</h2><button class="primary" data-action="payment">+ Registrar pago</button></div>'+table(['Fecha','Tipo','Medio','Referencia','Importe'],ps.map(p=>[fmt(p.paid_on),p.kind==='detraction'?'Detracción':'Pago del cliente',esc(p.method),esc(p.reference||'—'),money(p.amount)]))+'</section>';
+if(detailTab==='Cobros')body='<div class="metrics">'+metric('Precio total del viaje',money(t.total))+metric('Recibido del cliente',money(t.customer_paid))+metric('Lo que falta cobrar',money(t.customer_balance))+metric('Detracción pendiente',money(t.detraction_balance))+'</div><section class="card"><div class="page-head"><h2>Pagos recibidos del cliente</h2>'+ (t.historical_settled_at?'<p>Histórico saldado por confirmación del administrador. No se inventaron fechas ni operaciones de pago.</p>':'')+'<button class="primary" data-action="payment" '+(t.historical_settled_at?'disabled':'')+'>+ Registrar pago</button></div>'+table(['Fecha','Tipo','Medio','Referencia','Importe'],ps.map(p=>[fmt(p.paid_on),p.kind==='detraction'?'Detracción':'Pago del cliente',esc(p.method),esc(p.reference||'—'),money(p.amount)]))+'</section>';
 if(!t.round_id&&detailTab==='Servicio')body='<section class="card"><h2>Viaje registrado · sin vuelta</h2><p>'+esc(t.client_name)+' · '+fmt(t.start_date)+'</p><p>'+esc(t.origin)+' → '+esc(t.destination)+'</p><p>Total del servicio: <strong>'+money(t.total)+'</strong></p><p>Ahora abre la vuelta correspondiente y pulsa «Añadir viaje existente». Los gastos y el dinero del chofer se completan en esa vuelta.</p><button data-page="Vueltas">Ir a Vueltas →</button></section>';
 if(t.round_id&&(detailTab==='Servicio'||detailTab==='Dinero del chofer'||detailTab==='Gastos y combustible'))body='<section class="card"><h2>Este viaje pertenece a una vuelta</h2><p>El adelanto del chofer, los gastos, el combustible y la ganancia se revisan juntos al terminar la vuelta.</p><button class="primary" data-round="'+t.round_id+'">Ver vuelta y liquidación →</button></section>';
 if(t.billing_note&&(detailTab==='Factura'||detailTab==='Cobros'))body='<p class="notice">'+esc(t.billing_note)+'</p>'+body;
@@ -92,6 +93,7 @@ installDriverCash({data,selected:()=>selected,form,input,select,write,rpc,today}
 
 installAccount({changePassword,render,toast});
 installPayments({data,render,form,table});
+installSupplierInvoices({data,form,input,select,rpc,table});
 installDocuments({data,render,form,input,select,write});
 
 installOperationTrash({data,form,rpc,afterDelete:kind=>{selected=null;selectedRound=null;tripReturn=null;page=kind==='trip'?'Viajes':'Vueltas';}});

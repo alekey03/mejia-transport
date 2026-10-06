@@ -1,4 +1,4 @@
-import {money,amounts} from './domain.js';
+import {money,amounts} from './domain.js?v=20261005b';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const months=['ENERO','FEBRERO','MARZO','ABRIL','MAYO','JUNIO','JULIO','AGOSTO','SETIEMBRE','OCTUBRE','NOVIEMBRE','DICIEMBRE'];
 const names={monthly:'Utilidad conciliada',service:'Servicios',expense_group:'Gastos por grupo',admin:'Administrativos',invoice:'Facturas y cobros',fuel:'Consumo',payable:'Deudas a terceros',original:'Todas las celdas'};

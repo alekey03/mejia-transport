@@ -1,7 +1,7 @@
-import {round,summarize,money} from './domain.js?v=20261001ze';
+import {round,summarize,money} from './domain.js?v=20261005b';
 export function payableRows(d){
  const paid=(rows,key,id)=>rows.filter(p=>p[key]===id).reduce((s,p)=>s+Number(p.amount),0);
- return [...(d.payable_accounts||[]).map(e=>({...e,paid:paid(d.payable_payments||[],'account_id',e.id)})),...(d.expenses||[]).filter(e=>e.payment_mode==='credit').map(e=>({...e,concept:e.category,vehicle_id:d.rounds?.find(r=>r.id===e.round_id)?.vehicle_id||d.trips.find(t=>t.id===e.trip_id)?.vehicle_id,incurred_on:e.occurred_at?.slice(0,10),paid:paid(d.supplier_payments||[],'expense_id',e.id)}))];
+ return [...(d.payable_accounts||[]).map(e=>({...e,paid:e.historical_settled_at?Number(e.amount):paid(d.payable_payments||[],'account_id',e.id)})),...(d.expenses||[]).filter(e=>e.payment_mode==='credit').map(e=>({...e,concept:e.category,vehicle_id:d.rounds?.find(r=>r.id===e.round_id)?.vehicle_id||d.trips.find(t=>t.id===e.trip_id)?.vehicle_id,incurred_on:e.occurred_at?.slice(0,10),paid:e.historical_settled_at?Number(e.amount):paid(d.supplier_payments||[],'expense_id',e.id)}))];
 }
 export function pendingBalances(d){
  const pendingReview=d.trips.filter(t=>t.collection_verified===false).length;

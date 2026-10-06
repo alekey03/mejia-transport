@@ -1,7 +1,7 @@
-import {payableRows} from './balances.js?v=20261001ze';
+import {payableRows} from './balances.js?v=20261005b';
 import {maintenanceFields,maintenanceValue,showMaintenance,linkedMaintenanceTable} from './maintenance-link.js?v=20261001ze';
 import {fuelRound} from './fuel-round.js?v=20261001zj';
-import {money,round,amounts,fuelRows} from './domain.js?v=20261001ze';
+import {money,round,amounts,fuelRows} from './domain.js?v=20261005b';
 export const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export const sum=(a,k)=>a.reduce((s,r)=>s+Number(r[k]||0),0);
 export const table=(hs,rs)=>'<div class="table-wrap"><table><thead><tr>'+hs.map(h=>'<th>'+esc(h)+'</th>').join('')+'</tr></thead><tbody>'+rs.map(r=>'<tr>'+r.map(v=>'<td>'+v+'</td>').join('')+'</tr>').join('')+'</tbody></table></div>';

@@ -1,4 +1,4 @@
-import {money,round} from './domain.js';
+import {money,round} from './domain.js?v=20261005b';
 const esc=v=>String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 export function driverCashBalance(d,id){
  const movements=(d.driver_cash_entries||[]).filter(e=>e.trip_id===id&&!e.voided);
