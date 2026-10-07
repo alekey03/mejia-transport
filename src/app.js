@@ -1,4 +1,4 @@
-import {monthlyOverview} from './monthly-overview.js?v=20261007f';
+import {monthlyOverview} from './monthly-overview.js?v=20261007h';
 import {pricingFields,bindPricing,servicePricing} from './service-pricing.js?v=20261007d';
 import './life.js?v=20261005a';
 import {collectionsView} from './collection-filter.js?v=20261005b';
